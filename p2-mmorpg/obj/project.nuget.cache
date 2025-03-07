@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "tgmdIZo55ow=",
+  "success": true,
+  "projectFilePath": "/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/p2-mmorpg.csproj",
+  "expectedPackageFiles": [
+    "/home/powerseal/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.2/microsoft.aspnetcore.app.ref.9.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

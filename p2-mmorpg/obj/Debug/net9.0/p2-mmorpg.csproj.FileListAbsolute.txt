@@ -1,0 +1,14 @@
+/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/bin/Debug/net9.0/p2-mmorpg
+/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/bin/Debug/net9.0/p2-mmorpg.deps.json
+/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/bin/Debug/net9.0/p2-mmorpg.runtimeconfig.json
+/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/bin/Debug/net9.0/p2-mmorpg.dll
+/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/bin/Debug/net9.0/p2-mmorpg.pdb
+/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/obj/Debug/net9.0/p2-mmorpg.GeneratedMSBuildEditorConfig.editorconfig
+/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/obj/Debug/net9.0/p2-mmorpg.AssemblyInfoInputs.cache
+/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/obj/Debug/net9.0/p2-mmorpg.AssemblyInfo.cs
+/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/obj/Debug/net9.0/p2-mmorpg.csproj.CoreCompileInputs.cache
+/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/obj/Debug/net9.0/p2-mmorpg.dll
+/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/obj/Debug/net9.0/refint/p2-mmorpg.dll
+/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/obj/Debug/net9.0/p2-mmorpg.pdb
+/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/obj/Debug/net9.0/p2-mmorpg.genruntimeconfig.cache
+/home/powerseal/coleg/College/4th-Year-2nd-Term/STDISCM-S11/assignments/p2-mmorpg/p2-mmorpg/obj/Debug/net9.0/ref/p2-mmorpg.dll
