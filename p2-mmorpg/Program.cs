@@ -1,16 +1,18 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-Lock _lock = new();
-
-new Thread( () => 
+// mfw input validation
+if (args.Length != 0) {
+    Console.WriteLine("IM NOT EMPTY");
+    
+    uint output = 69;
+    try
     {
-        lock(_lock) 
-        {
-            var id = Thread.CurrentThread.ManagedThreadId;
+        output = uint.Parse(args[0]);
+    }
+    catch (Exception _) 
+    {
+        Console.WriteLine("BAD FORMATTING! Defaulting...")
+    }
 
-            Console.WriteLine($"Thread {id}: I sleep."); 
-            Thread.Sleep(1000); 
-            Console.WriteLine($"Thread {id}: REAL SHIT?"); 
-        }
-    }).Start();
-Console.WriteLine("Hello, World!");
+    Console.WriteLine($"output = {output}");
+}
