@@ -2,8 +2,8 @@ namespace Input
 {
     abstract class IntInput
     {
-        virtual public uint Value { get; set; }
-        virtual public uint ParseValue(string arg);
+        public abstract uint Value { get; set; }
+        public virtual uint ParseValue(string arg);
     }
 
     class MaxInstances : IntInput
