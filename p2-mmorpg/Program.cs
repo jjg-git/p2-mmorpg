@@ -2,9 +2,9 @@
 uint maxInstances = 1;
 uint instanceRunning = 0;
 uint party = 0;
-uint tanks = 1;
-uint healer = 1;
-uint dps = 1;
+uint tanks = 10;
+uint healer = 10;
+uint dps = 10;
 
 List<Party> listOfParty = new(5);
 
@@ -17,6 +17,7 @@ while (!seeIfAnyEmpty() && instanceRunning != maxInstances)
 
     Party newParty = listOfParty.Last();
 
+    // Party member assigning
     if (newParty.addTanks())
         tanks--;
 
@@ -29,8 +30,18 @@ while (!seeIfAnyEmpty() && instanceRunning != maxInstances)
     newParty.showInfo();
     showRemaining();
 
-    addParty();
-    assignPartyToInstance();
+
+    // End condition
+    if (newParty.isFull() && !seeIfAnyEmpty())
+    {
+        assignPartyToInstance();
+        addParty();
+
+        if (!seeIfAnyEmpty())
+        {
+            listOfParty.Add(new Party());
+        }
+    }
 }
 
 void showRemaining()
@@ -102,6 +113,8 @@ class Party
     public Party()
     {
         id = count;
+        Console.WriteLine($"Party {id} is created!");
+
         count++;
     }
 
