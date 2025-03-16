@@ -32,7 +32,7 @@ while (!seeIfAnyEmpty() && instanceRunning != maxInstances)
 
 
     // End condition
-    if (newParty.isFull() && !seeIfAnyEmpty())
+    if (newParty.isFull())
     {
         assignPartyToInstance();
         addParty();
