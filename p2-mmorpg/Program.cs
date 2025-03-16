@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
-uint maxInstances = 1;
+
+uint maxInstances = 2;
 uint instanceRunning = 0;
 uint party = 0;
 uint tanks = 10;
@@ -10,15 +11,19 @@ List<Party> listOfParty = new(5);
 
 Console.WriteLine("Program starts!");
 
-while (!seeIfAnyEmpty() && instanceRunning != maxInstances)
+while (!seeIfAnyEmpty())
 {
+    // Starting steps
     if (listOfParty.Count == 0)
+    {
+        Console.Write("\n");
         listOfParty.Add(new Party());
+    }
 
     Party newParty = listOfParty.Last();
 
     // Party member assigning
-    if (newParty.addTanks())
+    if (newParty.AddTanks())
         tanks--;
 
     if (newParty.addHealer())
@@ -32,16 +37,44 @@ while (!seeIfAnyEmpty() && instanceRunning != maxInstances)
 
 
     // End condition
-    if (newParty.isFull())
+    if (newParty.IsFull())
     {
-        assignPartyToInstance();
         addParty();
+
+        assignPartyToInstance();
+
+        // Either wait for the instance list to run out
+        if (isInstanceQueueFull())
+        {
+            Console.Write("\n");
+            Console.WriteLine("The parties are about to do their mission...");
+
+            while (instanceRunning > 0)
+            {
+                partyCompletesMission();
+            }
+            
+            Console.WriteLine("All parties have completed the mission.");
+        }
+
+        // or make the party do the mission immediately
+        // by the time they get a mission.
+        // partyCompletesMission();
 
         if (!seeIfAnyEmpty())
         {
+            Console.Write("\n");
             listOfParty.Add(new Party());
         }
     }
+}
+
+Console.Write("\n");
+Console.WriteLine($"Number of parties created: {party}");
+
+bool isInstanceQueueFull()
+{
+    return instanceRunning == maxInstances;
 }
 
 void showRemaining()
@@ -59,7 +92,16 @@ void addParty()
 
 void assignPartyToInstance()
 {
+    Console.WriteLine("The party is assigned to a mission!");
     instanceRunning++;
+
+    Console.WriteLine($"Instances: {instanceRunning}/{maxInstances}");
+}
+
+void partyCompletesMission()
+{
+    Console.WriteLine("The party completed the mission.");
+    instanceRunning--;
 }
 
 bool seeIfAnyEmpty()
@@ -70,7 +112,7 @@ bool seeIfAnyEmpty()
 class Party
 {
 
-    public bool addTanks()
+    public bool AddTanks()
     {
         if (tanks == maxTanks)
             return false;
@@ -96,7 +138,7 @@ class Party
         return true;
     }
 
-    public bool isFull()
+    public bool IsFull()
     {
         return tanks == maxTanks &&
                healer == maxHealer &&
