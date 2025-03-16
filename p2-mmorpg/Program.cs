@@ -4,6 +4,28 @@ uint tanks = 1;
 uint healer = 1;
 uint dps = 1;
 
+void showRemaining()
+{
+    Console.WriteLine("---Remaining---");
+    Console.WriteLine($"tank: {tanks}");
+    Console.WriteLine($"healer: {healer}");
+    Console.WriteLine($"dps: {dps}");
+}
+
+void addParty()
+{
+    party++;
+}
+
+void assignPartyToInstance()
+{
+    instanceRunning++;
+}
+
+bool seeIfAnyEmpty()
+{
+    return (tanks == 0) || (healer == 0) || (dps == 0);
+}
 
 class Party
 {
