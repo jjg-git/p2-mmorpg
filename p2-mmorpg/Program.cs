@@ -4,7 +4,6 @@ uint tanks = 1;
 uint healer = 1;
 uint dps = 1;
 
-maxInstances = (new Input.MaxInstances()).Parse(args[0]);
 
 class Party
 {
