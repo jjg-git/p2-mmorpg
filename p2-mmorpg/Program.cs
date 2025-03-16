@@ -1,8 +1,37 @@
 ﻿// See https://aka.ms/new-console-template for more information
 uint maxInstances = 1;
+uint instanceRunning = 0;
+uint party = 0;
 uint tanks = 1;
 uint healer = 1;
 uint dps = 1;
+
+List<Party> listOfParty = new(5);
+
+Console.WriteLine("Program starts!");
+
+while (!seeIfAnyEmpty() && instanceRunning != maxInstances)
+{
+    if (listOfParty.Count == 0)
+        listOfParty.Add(new Party());
+
+    Party newParty = listOfParty.Last();
+
+    if (newParty.addTanks())
+        tanks--;
+
+    if (newParty.addHealer())
+        healer--;
+
+    if (newParty.addDPS())
+        dps--;
+
+    newParty.showInfo();
+    showRemaining();
+
+    addParty();
+    assignPartyToInstance();
+}
 
 void showRemaining()
 {
