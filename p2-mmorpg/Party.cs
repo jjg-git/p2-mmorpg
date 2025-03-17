@@ -1,29 +1,62 @@
-using Players;
-
-namespace Mechanics
+class Party
 {
-    class Party
+
+    public bool AddTanks()
     {
-        public int NoOfDps { get; } = 0;
-        public int NoOfTank { get; } = 0;
-        public int NoOfHealer { get; } = 0;
+        if (tanks == maxTanks)
+            return false;
 
-        public List<Dps> DpsList { get; }
-        public List<Tank> TankList { get; }
-        public List<Healer> HealerList { get; }
-
-
-        public Party()
-        {
-            DpsList = new(3);
-            TankList = new(1);
-            HealerList = new(1);
-        }
-
-        public void AddPartyOut(Dps newDps)
-        {
-            DpsList.Add(newDps);
-            newDps.Field1 = 20;
-        }
+        tanks += 1;
+        return true;
     }
+
+    public bool AddHealer()
+    {
+        if (healer == maxHealer)
+            return false;
+
+        healer += 1;
+        return true;
+    }
+
+    public bool AddDPS()
+    {
+        if (dps == maxDPS)
+            return false;
+        dps += 1;
+        return true;
+    }
+
+    public bool IsFull()
+    {
+        return tanks == maxTanks &&
+               healer == maxHealer &&
+               dps == maxDPS;
+    }
+
+    public void ShowInfo()
+    {
+        Console.WriteLine(
+            $"Party ID {id} {{tanks: {tanks}, healer: {healer}, dps: {dps}}}"
+        );
+    }
+
+    public Party()
+    {
+        id = count;
+        Console.WriteLine($"Party {id} is created!");
+
+        count++;
+    }
+
+    private const int maxTanks = 1;
+    private const int maxHealer = 1;
+    private const int maxDPS = 3;
+
+    private int tanks = 0;
+    private int healer = 0;
+    private int dps = 0;
+
+    private static int count = 0;
+    private int id = 0;
 }
