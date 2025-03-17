@@ -1,8 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-uint maxInstances = 2;
+uint maxInstances = 2; // the "n" instances
 uint instanceRunning = 0;
+
 uint party = 0;
+
 uint tanks = 10;
 uint healer = 10;
 uint dps = 10;
@@ -11,6 +13,33 @@ List<Party> listOfParty = new(5);
 
 Console.WriteLine("Program starts!");
 
+int data = 0;
+object mutual_lock = new();
+
+// Sleepin time
+Thread thread1 = new(addData);
+Thread thread2 = new(addData);
+thread1.Start();
+thread2.Start();
+
+thread1.Join();
+thread2.Join();
+
+Console.WriteLine($"final: data = {data}");
+
+
+void addData()
+{
+    for (int i = 0; i < 10000; i++)
+    {
+        lock (mutual_lock)
+        {
+            data++;
+        }
+    }
+}
+
+/*
 while (!seeIfAnyEmpty())
 {
     // Starting steps
@@ -26,13 +55,13 @@ while (!seeIfAnyEmpty())
     if (newParty.AddTanks())
         tanks--;
 
-    if (newParty.addHealer())
+    if (newParty.AddHealer())
         healer--;
 
-    if (newParty.addDPS())
+    if (newParty.AddDPS())
         dps--;
 
-    newParty.showInfo();
+    newParty.ShowInfo();
     showRemaining();
 
 
@@ -108,66 +137,4 @@ bool seeIfAnyEmpty()
 {
     return (tanks == 0) || (healer == 0) || (dps == 0);
 }
-
-class Party
-{
-
-    public bool AddTanks()
-    {
-        if (tanks == maxTanks)
-            return false;
-
-        tanks += 1;
-        return true;
-    }
-
-    public bool addHealer()
-    {
-        if (healer == maxHealer)
-            return false;
-
-        healer += 1;
-        return true;
-    }
-
-    public bool addDPS()
-    {
-        if (dps == maxDPS)
-            return false;
-        dps += 1;
-        return true;
-    }
-
-    public bool IsFull()
-    {
-        return tanks == maxTanks &&
-               healer == maxHealer &&
-               dps == maxDPS;
-    }
-
-    public void showInfo()
-    {
-        Console.WriteLine(
-            $"Party ID {id} {{tanks: {tanks}, healer: {healer}, dps: {dps}}}"
-        );
-    }
-
-    public Party()
-    {
-        id = count;
-        Console.WriteLine($"Party {id} is created!");
-
-        count++;
-    }
-
-    private const int maxTanks = 1;
-    private const int maxHealer = 1;
-    private const int maxDPS = 3;
-
-    private int tanks = 0;
-    private int healer = 0;
-    private int dps = 0;
-
-    private static int count = 0;
-    private int id = 0;
-}
+*/
