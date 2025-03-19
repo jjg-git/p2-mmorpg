@@ -299,3 +299,17 @@ void WriteInstanceStatus(
     );
 }
 
+void WriteTimeStamp(
+        int threadHashCode,
+        string nameInstance,
+        bool status
+)
+{
+    string timeStampCaption = "";
+    ConsoleWriteLineThread(
+        threadHashCode,
+        nameInstance,
+        $"Status: {timeStampCaption}."
+    );
+}
+
