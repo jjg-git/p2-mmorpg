@@ -79,17 +79,71 @@ void QueueParty()
 void InstanceFunction()
 {
     int threadHashCode = Thread.CurrentThread.GetHashCode();
-    Console.WriteLine(
-        $"Thread {threadHashCode} is running..."
+    string nameInstance = "newInstance";
+    uint sleepTime = GetRandomTime();
+
+    bool lookingForParty = true;
+
+    WriteInstanceStatus(threadHashCode, nameInstance, false);
+    while (true)
+    {
+        // Monitor.Enter(mutual_lock);
+        lock (mutual_lock)
+        {
+            lookingForParty = partyQueue.Count != 0;
+        }
+
+        if (!lookingForParty)
+        {
+            break;
+        }
+
+        Party? queuedParty;
+
+        lock (mutual_lock)
+        {
+            queuedParty = partyQueue.Dequeue();
+        }
+
+        if (queuedParty == null)
+        {
+            ConsoleWriteLineThread(
+                threadHashCode,
+                nameInstance,
+                "Dequeueing failed!!"
+            );
+
+            return;
+        }
+
+        WriteInstanceStatus(threadHashCode, nameInstance, true);
+
+        // Monitor.Exit(mutual_lock);
+
+        ConsoleWriteLineThread(
+            threadHashCode,
+            nameInstance,
+            $"Thread sleeps for {sleepTime}."
+        );
+        Thread.Sleep((int)sleepTime);
+
+        WriteInstanceStatus(threadHashCode, nameInstance, false);
+    }
+
+    ConsoleWriteLineThread(
+        threadHashCode,
+        nameInstance,
+        "Done!"
     );
+}
 
+uint GetRandomTime()
+{
+    uint time = 0;
+    Random random = Random.Shared;
+    time = (uint)random.Next() % (maxTime - minTime) + minTime;
 
-    lock(mutual_lock)
-        showRemaining();
-
-    Console.WriteLine(
-        $"Thread {threadHashCode} is exiting."
-    );
+    return time;
 }
 
 /*
@@ -196,3 +250,44 @@ void DrawLine()
 {
     Console.WriteLine("--------------------------------");
 }
+
+string NameThread(int threadHashCode, string nameInstance)
+{
+    return $"Thread {nameInstance} {threadHashCode}: ";
+}
+
+void ConsoleWriteLineThread(
+        int threadHashCode,
+        string nameInstance,
+        string caption
+        )
+{
+    Console.WriteLine(
+        NameThread(threadHashCode, nameInstance) + caption
+    );
+}
+
+void WriteInstanceStatus(
+        int threadHashCode,
+        string nameInstance,
+        bool status
+)
+{
+    string statusCaption = "";
+    switch (status)
+    {
+        case true:
+            statusCaption = "active";
+            break;
+
+        case false:
+            statusCaption = "empty";
+            break;
+    }
+    ConsoleWriteLineThread(
+        threadHashCode,
+        nameInstance,
+        $"Status: {statusCaption}."
+    );
+}
+
