@@ -43,6 +43,10 @@ foreach (var thread in threadlist)
     thread.Join();
 }
 
+
+Console.Write("\n");
+Console.WriteLine($"Number of parties created: {party}");
+
 void QueueParty()
 {
     Party? newParty = null;
@@ -212,8 +216,6 @@ while (!seeIfAnyEmpty())
 }
 
 */
-Console.Write("\n");
-Console.WriteLine($"Number of parties created: {party}");
 
 bool isInstanceQueueFull()
 {
@@ -228,7 +230,7 @@ void showRemaining()
     Console.WriteLine($"dps: {dps}");
 }
 
-void addParty()
+void AddParty()
 {
     party++;
 }
