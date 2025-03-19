@@ -1,15 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 
-uint maxInstances = 2; // the "n" instances
+uint maxInstances = 10; // the "n" instances
 uint instanceRunning = 0;
-
 uint party = 0;
-
-uint tanks = 10;
-uint healer = 10;
-uint dps = 10;
-
+uint tanks = 33;
+uint healer = 33;
+uint dps = 100;
 uint minTime = 200;
 uint maxTime = 1000;
 
