@@ -313,3 +313,14 @@ void WriteTimeStamp(
     );
 }
 
+class Instance
+{
+    private string nameInstance;
+    private int hashCode;
+
+    Instance(string nameInstance, int hashCode)
+    {
+        this.nameInstance = nameInstance;
+        this.hashCode = hashCode;
+    }
+}
