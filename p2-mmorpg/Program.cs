@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+
 uint maxInstances = 2; // the "n" instances
 uint instanceRunning = 0;
 
@@ -9,8 +10,13 @@ uint tanks = 10;
 uint healer = 10;
 uint dps = 10;
 
-List<Party> listOfParty = new(5);
+uint minTime = 200;
+uint maxTime = 1000;
 
+Queue<Party> partyQueue = new(); // because my LSP
+                                                  // complained, so i
+                                                  // casted it from uint
+                                                  // to int
 Console.WriteLine("Program starts!");
 
 int data = 0;
@@ -18,16 +24,71 @@ object mutual_lock = new();
 
 for (int i = 0; i < maxInstances; i++)
 {
-    Thread newThread = new(ThreadFunction);
-    newThread.Start();
-    newThread.Join();
+    Thread newInstance = new(InstanceFunction);
+    newInstance.Start();
+    newInstance.Join();
 }
 
-void ThreadFunction()
+Thread partyQueueing = new(QueueParty);
+
+void QueueParty()
+{
+    Party? newParty = null;
+    while (!seeIfAnyEmpty())
+    {
+        if (partyQueue.Count != 0)
+            continue;
+
+        newParty ??= new();
+        partyQueue.Enqueue(newParty);
+        uint acquiredTanks = 0;
+        uint acquiredHealer = 0;
+        uint acquiredDPS = 0;
+
+        while (true)
+        {
+            if (acquiredTanks == 1 &&
+                    acquiredHealer == 1 &&
+                    acquiredDPS == 3)
+            {
+                break;
+            }
+            lock (mutual_lock)
+            {
+                if (acquiredTanks != 1)
+                {
+                    tanks--;
+                    acquiredTanks++;
+                }
+                if (acquiredHealer != 1)
+                {
+                    healer--;
+                    acquiredHealer++;
+                }
+                if (acquiredDPS != 3)
+                {
+                    dps--;
+                    acquiredDPS++;
+                }
+            }
+        }
+        Monitor.Exit(mutual_lock);
+    }
+}
+
+void InstanceFunction()
 {
     int threadHashCode = Thread.CurrentThread.GetHashCode();
     Console.WriteLine(
         $"Thread {threadHashCode} is running..."
+    );
+
+
+    lock(mutual_lock)
+        showRemaining();
+
+    Console.WriteLine(
+        $"Thread {threadHashCode} is exiting."
     );
 }
 
@@ -90,6 +151,7 @@ while (!seeIfAnyEmpty())
     }
 }
 
+*/
 Console.Write("\n");
 Console.WriteLine($"Number of parties created: {party}");
 
@@ -129,4 +191,8 @@ bool seeIfAnyEmpty()
 {
     return (tanks == 0) || (healer == 0) || (dps == 0);
 }
-*/
+
+void DrawLine()
+{
+    Console.WriteLine("--------------------------------");
+}
