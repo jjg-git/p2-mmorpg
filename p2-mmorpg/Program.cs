@@ -10,6 +10,15 @@ uint dps = 100;
 uint minTime = 200;
 uint maxTime = 1000;
 
+// Inputting time
+
+if (args.Length != 0)
+{
+    
+}
+
+
+
 Queue<Party> partyQueue = new(); // because my LSP
                                  // complained, so i
                                  // casted it from uint
