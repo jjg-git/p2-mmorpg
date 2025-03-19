@@ -14,9 +14,10 @@ uint minTime = 200;
 uint maxTime = 1000;
 
 Queue<Party> partyQueue = new(); // because my LSP
-                                                  // complained, so i
-                                                  // casted it from uint
-                                                  // to int
+                                 // complained, so i
+                                 // casted it from uint
+                                 // to int
+List<Thread> threadlist = new((int)maxInstances);
 Console.WriteLine("Program starts!");
 
 int data = 0;
@@ -24,12 +25,14 @@ object mutual_lock = new();
 
 for (int i = 0; i < maxInstances; i++)
 {
-    Thread newInstance = new(InstanceFunction);
-    newInstance.Start();
-    newInstance.Join();
+    threadlist.Add(new(InstanceFunction));
+    threadlist.Last().Start();
 }
 
-Thread partyQueueing = new(QueueParty);
+foreach (var thread in threadlist)
+{
+    thread.Join();
+}
 
 void QueueParty()
 {
