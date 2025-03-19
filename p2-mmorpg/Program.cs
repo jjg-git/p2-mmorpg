@@ -23,6 +23,8 @@ Console.WriteLine("Program starts!");
 int data = 0;
 object mutual_lock = new();
 
+QueueParty();
+
 for (int i = 0; i < maxInstances; i++)
 {
     threadlist.Add(new(InstanceFunction));
