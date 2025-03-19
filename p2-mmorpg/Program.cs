@@ -16,27 +16,19 @@ Console.WriteLine("Program starts!");
 int data = 0;
 object mutual_lock = new();
 
-// Sleepin time
-Thread thread1 = new(addData);
-Thread thread2 = new(addData);
-thread1.Start();
-thread2.Start();
-
-thread1.Join();
-thread2.Join();
-
-Console.WriteLine($"final: data = {data}");
-
-
-void addData()
+for (int i = 0; i < maxInstances; i++)
 {
-    for (int i = 0; i < 10000; i++)
-    {
-        lock (mutual_lock)
-        {
-            data++;
-        }
-    }
+    Thread newThread = new(ThreadFunction);
+    newThread.Start();
+    newThread.Join();
+}
+
+void ThreadFunction()
+{
+    int threadHashCode = Thread.CurrentThread.GetHashCode();
+    Console.WriteLine(
+        $"Thread {threadHashCode} is running..."
+    );
 }
 
 /*
