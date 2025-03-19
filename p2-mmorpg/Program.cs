@@ -26,8 +26,9 @@ Queue<Party> partyQueue = new(); // because my LSP
 List<Thread> threadlist = new((int)maxInstances);
 Console.WriteLine("Program starts!");
 
-int data = 0;
 object mutual_lock = new();
+object datetime_lock = new();
+object stats_lock = new();
 
 QueueParty();
 
