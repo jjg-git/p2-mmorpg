@@ -37,45 +37,39 @@ foreach (var thread in threadlist)
 void QueueParty()
 {
     Party? newParty = null;
+
     while (!seeIfAnyEmpty())
     {
-        if (partyQueue.Count != 0)
-            continue;
+        Console.WriteLine(
+            $"Making a party..."
+        );
 
         newParty ??= new();
-        partyQueue.Enqueue(newParty);
-        uint acquiredTanks = 0;
-        uint acquiredHealer = 0;
-        uint acquiredDPS = 0;
 
-        while (true)
+        Console.WriteLine(
+            $"A party is created."
+        );
+
+        while (!newParty.IsFull() && !seeIfAnyEmpty())
         {
-            if (acquiredTanks == 1 &&
-                    acquiredHealer == 1 &&
-                    acquiredDPS == 3)
-            {
-                break;
-            }
-            lock (mutual_lock)
-            {
-                if (acquiredTanks != 1)
-                {
-                    tanks--;
-                    acquiredTanks++;
-                }
-                if (acquiredHealer != 1)
-                {
-                    healer--;
-                    acquiredHealer++;
-                }
-                if (acquiredDPS != 3)
-                {
-                    dps--;
-                    acquiredDPS++;
-                }
-            }
+            if (newParty.AddTanks())
+                tanks--;
+            if (newParty.AddHealer())
+                healer--;
+            if (newParty.AddDPS())
+                dps--;
         }
-        Monitor.Exit(mutual_lock);
+
+        if (newParty.IsFull())
+        {
+            newParty.ShowInfo();
+            AddParty();
+            partyQueue.Enqueue(newParty);
+        }
+
+        newParty = null;
+
+        showRemaining();
     }
 }
 
