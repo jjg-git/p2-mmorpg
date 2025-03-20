@@ -1,6 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-
 uint maxInstances = 10; // the "n" instances
 uint instanceRunning = 0;
 uint party = 0;
@@ -11,10 +10,11 @@ uint minTime = 200;
 uint maxTime = 1000;
 
 // Inputting time
+Config? config;
 
-if (args.Length != 0)
+if (args.Length == 6)
 {
-    
+
 }
 
 
