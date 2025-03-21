@@ -1,23 +1,27 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-uint maxInstances = 10; // the "n" instances
+// Inputting time
+Config config = new();
+PrepareConfig prepareConfig = new();
+
+Console.WriteLine($"args.Length = {args.Length}");
+
+if (args.Length != 6)
+    config = prepareConfig.Execute(new RuntimeInput());
+else
+    config = prepareConfig.Execute(new ArgsInput(args));
+
+ConfigInfo(config);
+
+uint maxInstances = config.MaxInstances; // the "n" instances
+uint tanks = config.Tanks;
+uint healer = config.Healer;
+uint dps = config.Dps;
+uint minTime = config.MinTime;
+uint maxTime = config.MaxTime;
+
 uint instanceRunning = 0;
 uint party = 0;
-uint tanks = 33;
-uint healer = 33;
-uint dps = 100;
-uint minTime = 200;
-uint maxTime = 1000;
-
-// Inputting time
-Config? config;
-
-if (args.Length == 6)
-{
-
-}
-
-
 
 Queue<Party> partyQueue = new(); // because my LSP
                                  // complained, so i
