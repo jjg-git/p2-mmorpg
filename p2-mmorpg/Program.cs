@@ -313,6 +313,20 @@ void WriteTimeStamp(
     );
 }
 
+void ConfigInfo(Config config)
+{
+    Console.WriteLine(
+        $"""
+        MaxInstances = {config.MaxInstances}
+        Tanks = {config.Tanks}
+        Healer = {config.Healer}
+        DPS = {config.Dps}
+        MinTime = {config.MinTime}
+        MaxTime = {config.MaxTime}
+        """
+    );
+}
+
 class Instance
 {
     private string nameInstance;
