@@ -46,8 +46,6 @@ uint dps = config.Dps;
 uint minTime = config.MinTime;
 uint maxTime = config.MaxTime;
 
-uint instanceRunning = 0;
-
 Queue<Party> partyQueue = new(); // because my LSP
                                  // complained, so i
                                  // casted it from uint
@@ -241,16 +239,6 @@ void InstanceFunction(int id)
     // Console.WriteLine($"Instance {id} unlocks stats_lock!");
 }
 
-void ShowDiffTimeSpan(TimeSpan previous, TimeSpan current)
-{
-    double diff = current.TotalMilliseconds - previous.TotalMilliseconds;
-    Console.WriteLine(
-        $"previous: {previous.TotalMilliseconds} ms\n" +
-        $"current: {current.TotalMilliseconds} ms\n" +
-        $"current - previous = {diff} ms"
-    );
-}
-
 uint GetRandomTime()
 {
     uint time = 0;
@@ -321,11 +309,6 @@ while (!seeIfAnyEmpty())
 
 */
 
-bool isInstanceQueueFull()
-{
-    return instanceRunning == maxInstances;
-}
-
 void showRemaining()
 {
     Console.WriteLine("---Remaining---");
@@ -337,7 +320,6 @@ void showRemaining()
 void assignPartyToInstance()
 {
     Console.WriteLine("The party is assigned to a mission!");
-    instanceRunning++;
 
     Console.WriteLine($"Instances: {instanceRunning}/{maxInstances}");
 }
@@ -345,33 +327,11 @@ void assignPartyToInstance()
 void partyCompletesMission()
 {
     Console.WriteLine("The party completed the mission.");
-    instanceRunning--;
 }
 
 bool seeIfAllEmpty()
 {
     return (tanks == 0) && (healer == 0) && (dps == 0);
-}
-
-void DrawLine()
-{
-    Console.WriteLine("--------------------------------");
-}
-
-string NameThread(int threadHashCode, string nameInstance)
-{
-    return $"Thread {nameInstance} {threadHashCode}: ";
-}
-
-void ConsoleWriteLineThread(
-        int threadHashCode,
-        string nameInstance,
-        string caption
-        )
-{
-    Console.WriteLine(
-        NameThread(threadHashCode, nameInstance) + caption
-    );
 }
 
 void WriteTimeStamp(
