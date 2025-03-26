@@ -38,8 +38,11 @@ QueueParty();
 
 for (int i = 0; i < maxInstances; i++)
 {
-    threadlist.Add(new(InstanceFunction));
+    int id = i;
+    threadlist.Add(new(() => { InstanceFunction(id); }));
     threadlist.Last().Start();
+
+    // Console.WriteLine($"Instance {i} is created!");
 }
 
 foreach (var thread in threadlist)
@@ -90,17 +93,15 @@ void QueueParty()
     }
 }
 
-void InstanceFunction()
+void InstanceFunction(int id)
 {
-    int threadHashCode = Thread.CurrentThread.GetHashCode();
-    string nameInstance = "newInstance";
     uint sleepTime = GetRandomTime();
 
     bool lookingForParty = true;
 
-    WriteInstanceStatus(threadHashCode, nameInstance, false);
     while (true)
     {
+        Debug.WriteInstanceStatus(id, false);
         // Monitor.Enter(mutual_lock);
         lock (mutual_lock)
         {
@@ -130,7 +131,7 @@ void InstanceFunction()
             return;
         }
 
-        WriteInstanceStatus(threadHashCode, nameInstance, true);
+        Debug.WriteInstanceStatus(id, true);
 
         // Monitor.Exit(mutual_lock);
 
@@ -141,13 +142,15 @@ void InstanceFunction()
         );
         Thread.Sleep((int)sleepTime);
 
-        WriteInstanceStatus(threadHashCode, nameInstance, false);
+        Debug.WriteInstanceStatus(id, false);
     }
 
-    ConsoleWriteLineThread(
-        threadHashCode,
-        nameInstance,
-        "Done!"
+    // Debug.WriteInstanceStatus(id, false);
+    // ConsoleWriteLineThread(
+    //     threadHashCode,
+    //     nameInstance,
+    //     "Done!"
+    // );
     );
 }
 
@@ -279,30 +282,6 @@ void ConsoleWriteLineThread(
     );
 }
 
-void WriteInstanceStatus(
-        int threadHashCode,
-        string nameInstance,
-        bool status
-)
-{
-    string statusCaption = "";
-    switch (status)
-    {
-        case true:
-            statusCaption = "active";
-            break;
-
-        case false:
-            statusCaption = "empty";
-            break;
-    }
-    ConsoleWriteLineThread(
-        threadHashCode,
-        nameInstance,
-        $"Status: {statusCaption}."
-    );
-}
-
 void WriteTimeStamp(
         int threadHashCode,
         string nameInstance,
@@ -310,7 +289,7 @@ void WriteTimeStamp(
 )
 {
     string timeStampCaption = "";
-    ConsoleWriteLineThread(
+    Debug.ConsoleWriteLineThread(
         threadHashCode,
         nameInstance,
         $"Status: {timeStampCaption}."
