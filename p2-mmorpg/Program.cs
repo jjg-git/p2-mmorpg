@@ -70,32 +70,46 @@ foreach (var thread in threadlist)
 
 
 Console.Write("\n");
-Console.WriteLine($"Number of parties created: {party}");
+foreach (string? log in instanceLogs)
+{
+    Console.WriteLine(log);
+}
 
 void QueueParty()
 {
     Party? newParty = null;
 
-    while (!seeIfAnyEmpty())
+    while (!seeIfAllEmpty())
     {
-        Console.WriteLine(
-            $"Making a party..."
-        );
+        // Console.WriteLine(
+        //     $"Making a party..."
+        // );
 
         newParty ??= new();
 
-        Console.WriteLine(
-            $"A party is created."
-        );
+        // Console.WriteLine(
+        //     $"A party is created."
+        // );
 
-        while (!newParty.IsFull() && !seeIfAnyEmpty())
+        while (!newParty.IsFull() && !seeIfAllEmpty())
         {
-            if (newParty.AddTanks())
-                tanks--;
-            if (newParty.AddHealer())
-                healer--;
-            if (newParty.AddDPS())
-                dps--;
+            if (tanks != 0)
+            {
+                if (newParty.AddTanks())
+                    tanks--;
+            }
+            
+            if (healer != 0)
+            {
+                if (newParty.AddHealer())
+                    healer--;
+            }
+
+            if (dps != 0)
+            {
+                if (newParty.AddDPS())
+                    dps--;
+            }
         }
 
         if (newParty.IsFull())
@@ -268,9 +282,9 @@ void partyCompletesMission()
     instanceRunning--;
 }
 
-bool seeIfAnyEmpty()
+bool seeIfAllEmpty()
 {
-    return (tanks == 0) || (healer == 0) || (dps == 0);
+    return (tanks == 0) && (healer == 0) && (dps == 0);
 }
 
 void DrawLine()
