@@ -63,7 +63,7 @@ QueueParty();
 
 for (int i = 0; i < maxInstances; i++)
 {
-    int id = i;
+    uint id = Convert.ToUInt32(i);
     threadlist.Add(new(() => { InstanceFunction(id); }));
     threadlist.Last().Start();
 
@@ -136,11 +136,11 @@ void QueueParty()
 
         newParty = null;
 
-        showRemaining();
+        ShowRemaining();
     }
 }
 
-void InstanceFunction(int id)
+void InstanceFunction(uint id)
 {
     // Console.WriteLine(
     //     $"Instance {id} ({Thread.CurrentThread.GetHashCode()}) starts!"
@@ -199,7 +199,7 @@ void InstanceFunction(int id)
 
             break;
         }
-        assignPartyToInstance();
+        assignPartyToInstance(id);
         partyCreated++;
 
         Debug.WriteInstanceStatus(id, true);
@@ -213,7 +213,8 @@ void InstanceFunction(int id)
         // );
         int timeSeconds = Convert.ToInt32(sleepTime * msPerSec);
         Console.WriteLine(
-            string.Format("Waiting for {0,2} ms...", timeSeconds)
+            $"Instance {id} is " +
+            string.Format("waiting for {0,2} ms...", timeSeconds)
         );
 
         // previous = TimeSpan.FromTicks(Stopwatch.GetTimestamp());
@@ -222,7 +223,7 @@ void InstanceFunction(int id)
         // current = TimeSpan.FromTicks(Stopwatch.GetTimestamp());
 
         // ShowDiffTimeSpan(previous, current);
-        partyCompletesMission();
+        partyCompletesMission(id);
         Debug.WriteInstanceStatus(id, false);
     }
 
@@ -240,7 +241,7 @@ void InstanceFunction(int id)
     // Console.WriteLine($"Instance {id} locks stats_lock!");
     lock(stats_lock)
     {
-        instanceLogs[id] = 
+        instanceLogs[Convert.ToInt32(id)] = 
             $"Instance {id}:\n"
             + $"\tTime served: {timeLog}\n"
             + $"\tNumber of parties served: {partyCreated}";
@@ -326,16 +327,16 @@ void showRemaining()
     Console.WriteLine($"dps: {dps}");
 }
 
-void assignPartyToInstance()
+void assignPartyToInstance(uint id)
 {
-    Console.WriteLine("The party is assigned to a mission!");
+    Console.WriteLine($"The party is assigned to instance {id}!");
 
     // Console.WriteLine($"Instances: {instanceRunning}/{maxInstances}");
 }
 
-void partyCompletesMission()
+void partyCompletesMission(uint id)
 {
-    Console.WriteLine("The party completed the mission.");
+    Console.WriteLine($"The party completed instance {id}.");
 }
 
 bool seeIfAnyZero()

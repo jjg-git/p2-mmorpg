@@ -41,7 +41,7 @@ class Debug
     }
 
     public static void WriteInstanceStatus(
-            int id,
+            uint id,
             bool status
     )
     {
