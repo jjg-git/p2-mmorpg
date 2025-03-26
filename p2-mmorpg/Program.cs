@@ -4,7 +4,7 @@
 Config config = new();
 PrepareConfig prepareConfig = new();
 
-Console.WriteLine($"args.Length = {args.Length}");
+// Console.WriteLine($"args.Length = {args.Length}");
 
 if (args.Length != 6)
 {
