@@ -1,3 +1,4 @@
+using p2_mmorpg.Input;
 
 class PrepareConfig
 {

@@ -4,5 +4,6 @@ public record Config(
     uint Healer = DefaultConfig.Healer,
     uint Dps = DefaultConfig.Dps,
     uint MinTime = DefaultConfig.MinTime,
-    uint MaxTime = DefaultConfig.MaxTime,
-);
+    uint MaxTime = DefaultConfig.MaxTime
+)
+{}
