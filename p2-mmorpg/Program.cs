@@ -7,9 +7,28 @@ PrepareConfig prepareConfig = new();
 Console.WriteLine($"args.Length = {args.Length}");
 
 if (args.Length != 6)
+{
+    if (args.Length > 0)
+    {
+        Error.ShowMessage("""
+                Wrong syntax of the arguments.
+                Syntax: instances tanks healers dps min max
+                where
+                    instances - number of instances
+                    tanks - number of tanks in the Queue
+                    healers - number of healers in the Queue
+                    dps - number of dps in the Queue
+                    min - minimum time for the instance to wait
+                    max - maximum time for the instance to wait
+                """
+        ); 
+    }
     config = prepareConfig.Execute(new RuntimeInput());
+}
 else
+{
     config = prepareConfig.Execute(new ArgsInput(args));
+}
 
 ConfigInfo(config);
 
