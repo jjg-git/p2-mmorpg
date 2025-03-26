@@ -213,6 +213,7 @@ void InstanceFunction(int id)
         // current = TimeSpan.FromTicks(Stopwatch.GetTimestamp());
 
         // ShowDiffTimeSpan(previous, current);
+        partyCompletesMission();
         Debug.WriteInstanceStatus(id, false);
     }
 
@@ -320,7 +321,7 @@ void assignPartyToInstance()
 {
     Console.WriteLine("The party is assigned to a mission!");
 
-    Console.WriteLine($"Instances: {instanceRunning}/{maxInstances}");
+    // Console.WriteLine($"Instances: {instanceRunning}/{maxInstances}");
 }
 
 void partyCompletesMission()
