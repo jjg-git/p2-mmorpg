@@ -130,7 +130,7 @@ void QueueParty()
 
         if (newParty.IsFull())
         {
-            newParty.ShowInfo();
+            // newParty.ShowInfo();
             partyQueue.Enqueue(newParty);
         }
 
