@@ -190,6 +190,7 @@ void InstanceFunction(int id)
 
             break;
         }
+        assignPartyToInstance();
         partyCreated++;
 
         Debug.WriteInstanceStatus(id, true);
