@@ -190,7 +190,7 @@ void InstanceFunction(int id)
             );
             */
 
-            return;
+            break;
         }
         partyCreated++;
 
