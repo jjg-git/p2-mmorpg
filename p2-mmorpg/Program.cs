@@ -1,4 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Diagnostics;
+using p2_mmorpg.Input;
+
+const uint msPerSec = 1000;
+
+// Statistics
+List<string> instanceLogs;
 
 // Inputting time
 Config config = new();
@@ -46,6 +53,8 @@ Queue<Party> partyQueue = new(); // because my LSP
                                  // casted it from uint
                                  // to int
 List<Thread> threadlist = new((int)maxInstances);
+instanceLogs = CreateListOfEmptyStrs((int)maxInstances);
+
 Console.WriteLine("Program starts!");
 
 object mutual_lock = new();
@@ -126,9 +135,26 @@ void QueueParty()
 
 void InstanceFunction(int id)
 {
+    // Console.WriteLine(
+    //     $"Instance {id} ({Thread.CurrentThread.GetHashCode()}) starts!"
+    // );
+
+    // int threadHashCode = Thread.CurrentThread.GetHashCode();
+    // string nameInstance = "newInstance";
     uint sleepTime = GetRandomTime();
+    uint partyCreated = 0;
+
+    // For timelapse
+    string timeLog = string.Empty;
+    string partyLog = string.Empty;
 
     bool lookingForParty = true;
+
+    long previous;
+    long current;
+
+    // Console.WriteLine($"previous (id {id}) = {previous.TotalMilliseconds}");
+    previous = Stopwatch.GetTimestamp();
 
     while (true)
     {
@@ -141,6 +167,9 @@ void InstanceFunction(int id)
 
         if (!lookingForParty)
         {
+            // Console.WriteLine(
+            //     $"Instance {id} cannot find any more parties."
+            // );
             break;
         }
 
@@ -153,35 +182,72 @@ void InstanceFunction(int id)
 
         if (queuedParty == null)
         {
+            /*
             ConsoleWriteLineThread(
                 threadHashCode,
                 nameInstance,
                 "Dequeueing failed!!"
             );
+            */
 
             return;
         }
+        partyCreated++;
 
         Debug.WriteInstanceStatus(id, true);
 
         // Monitor.Exit(mutual_lock);
 
-        ConsoleWriteLineThread(
-            threadHashCode,
-            nameInstance,
-            $"Thread sleeps for {sleepTime}."
+        // ConsoleWriteLineThread(
+        //     threadHashCode,
+        //     nameInstance,
+        //     $"Thread sleeps for {sleepTime}."
+        // );
+        int timeSeconds = Convert.ToInt32(sleepTime * msPerSec);
+        Console.WriteLine(
+            string.Format("Waiting for {0,2} ms...", timeSeconds)
         );
-        Thread.Sleep((int)sleepTime);
 
+        // previous = TimeSpan.FromTicks(Stopwatch.GetTimestamp());
+        Thread.Sleep(timeSeconds);
+        // Thread.Sleep(Convert.ToInt32(sleepTime));
+        // current = TimeSpan.FromTicks(Stopwatch.GetTimestamp());
+
+        // ShowDiffTimeSpan(previous, current);
         Debug.WriteInstanceStatus(id, false);
     }
 
+    current = Stopwatch.GetTimestamp();
     // Debug.WriteInstanceStatus(id, false);
     // ConsoleWriteLineThread(
     //     threadHashCode,
     //     nameInstance,
     //     "Done!"
     // );
+
+    // Console.WriteLine($"previous (id {id}) = {current.TotalMilliseconds}");
+    timeLog = string.Format("{0:N2} ms", 
+        Stopwatch.GetElapsedTime(previous, current).TotalMilliseconds
+    );
+
+    // Console.WriteLine($"Instance {id} locks stats_lock!");
+    lock(stats_lock)
+    {
+        instanceLogs[id] = 
+            $"Instance {id}:\n"
+            + $"\tTime served: {timeLog}\n"
+            + $"\tNumber of parties served: {partyCreated}";
+    }
+    // Console.WriteLine($"Instance {id} unlocks stats_lock!");
+}
+
+void ShowDiffTimeSpan(TimeSpan previous, TimeSpan current)
+{
+    double diff = current.TotalMilliseconds - previous.TotalMilliseconds;
+    Console.WriteLine(
+        $"previous: {previous.TotalMilliseconds} ms\n" +
+        $"current: {current.TotalMilliseconds} ms\n" +
+        $"current - previous = {diff} ms"
     );
 }
 
@@ -324,27 +390,29 @@ void WriteTimeStamp(
 
 void ConfigInfo(Config config)
 {
+    Console.Write("\n");
+    Console.WriteLine("Configuration summary:");
     Console.WriteLine(
         $"""
-        MaxInstances = {config.MaxInstances}
-        Tanks = {config.Tanks}
-        Healer = {config.Healer}
-        DPS = {config.Dps}
-        MinTime = {config.MinTime}
-        MaxTime = {config.MaxTime}
+        Number of instances = {config.MaxInstances}
+        Number of tanks = {config.Tanks}
+        Number of healers = {config.Healer}
+        Number of DPS's = {config.Dps}
+        Minimum time in seconds for the instance to run = {config.MinTime}
+        Maximum time in seconds for the instance to run = {config.MaxTime}
         """
     );
+    Console.Write("\n");
 }
 
-class Instance
+List<string> CreateListOfEmptyStrs(int capacity)
 {
-    private string nameInstance;
-    private int hashCode;
+    List<string> result = new(capacity);
 
-    Instance(string nameInstance, int hashCode)
+    for (int i = 0; i < capacity; i++)
     {
-        this.nameInstance = nameInstance;
-        this.hashCode = hashCode;
+        result.Add(String.Empty);
     }
+    
+    return result;
 }
-
