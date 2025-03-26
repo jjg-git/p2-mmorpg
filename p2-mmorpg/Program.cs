@@ -319,7 +319,7 @@ while (!seeIfAnyEmpty())
 
 */
 
-void showRemaining()
+void ShowRemaining()
 {
     Console.WriteLine("---Remaining---");
     Console.WriteLine($"tank: {tanks}");
