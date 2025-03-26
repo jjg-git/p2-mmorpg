@@ -44,7 +44,7 @@ class Party
     public Party()
     {
         id = count;
-        Console.WriteLine($"Party {id} is created!");
+        // Console.WriteLine($"Party {id} is created!");
 
         count++;
     }
