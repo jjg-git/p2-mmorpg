@@ -225,9 +225,7 @@ void InstanceFunction(int id)
     // );
 
     // Console.WriteLine($"previous (id {id}) = {current.TotalMilliseconds}");
-    timeLog = string.Format("{0:N2} ms", 
-        Stopwatch.GetElapsedTime(previous, current).TotalMilliseconds
-    );
+    timeLog = WriteTimeStamp(current, previous);
 
     // Console.WriteLine($"Instance {id} locks stats_lock!");
     lock(stats_lock)
@@ -335,17 +333,10 @@ bool seeIfAllEmpty()
     return (tanks == 0) && (healer == 0) && (dps == 0);
 }
 
-void WriteTimeStamp(
-        int threadHashCode,
-        string nameInstance,
-        bool status
-)
+string WriteTimeStamp(long currentTick, long previousTick)
 {
-    string timeStampCaption = "";
-    Debug.ConsoleWriteLineThread(
-        threadHashCode,
-        nameInstance,
-        $"Status: {timeStampCaption}."
+    return string.Format("{0:N2} ms", 
+        Stopwatch.GetElapsedTime(previousTick, currentTick).TotalMilliseconds
     );
 }
 
