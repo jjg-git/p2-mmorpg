@@ -40,7 +40,6 @@ uint minTime = config.MinTime;
 uint maxTime = config.MaxTime;
 
 uint instanceRunning = 0;
-uint party = 0;
 
 Queue<Party> partyQueue = new(); // because my LSP
                                  // complained, so i
@@ -102,7 +101,6 @@ void QueueParty()
         if (newParty.IsFull())
         {
             newParty.ShowInfo();
-            AddParty();
             partyQueue.Enqueue(newParty);
         }
 
@@ -254,11 +252,6 @@ void showRemaining()
     Console.WriteLine($"tank: {tanks}");
     Console.WriteLine($"healer: {healer}");
     Console.WriteLine($"dps: {dps}");
-}
-
-void AddParty()
-{
-    party++;
 }
 
 void assignPartyToInstance()
