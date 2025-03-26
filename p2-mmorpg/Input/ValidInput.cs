@@ -32,7 +32,7 @@ namespace p2_mmorpg.Input
 
         public static bool CheckIfValid(string name, string arg)
         {
-            if (!int.TryParse(arg, out int result))
+            if (!uint.TryParse(arg, out uint result))
             {
                 ShowErrorParsing(name);
                 return false;

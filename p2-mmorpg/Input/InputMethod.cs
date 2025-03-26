@@ -2,12 +2,12 @@ namespace p2_mmorpg.Input
 {
     abstract public class InputMethod ()
     {
-        protected uint MaxInstances = 1;
-        protected uint Tanks = 1;
-        protected uint Healer = 1;
-        protected uint Dps = 3;
-        protected uint MinTime = 1;
-        protected uint MaxTime = 2;
+        protected ushort MaxInstances = 1;
+        protected ushort Tanks = 1;
+        protected ushort Healer = 1;
+        protected ushort Dps = 3;
+        protected ushort MinTime = 1;
+        protected ushort MaxTime = 2;
 
         public abstract void Invoke();
         public Config Execute()
@@ -43,7 +43,7 @@ namespace p2_mmorpg.Input
             if (!ValidInput.CheckIfValid(name, arg))
                 return;
 
-            uint result = uint.Parse(arg);
+            ushort result = ushort.Parse(arg);
             if (!ValidInput.CheckIfNotZero(name, result))
                 return;
 
@@ -57,7 +57,7 @@ namespace p2_mmorpg.Input
             if (!ValidInput.CheckIfValid(name, arg))
                 return;
 
-            Tanks = uint.Parse(arg);
+            Tanks = ushort.Parse(arg);
         }
 
         protected void ParseHealer(string arg)
@@ -67,7 +67,7 @@ namespace p2_mmorpg.Input
             if (!ValidInput.CheckIfValid(name, arg))
                 return;
 
-            Healer = uint.Parse(arg);
+            Healer = ushort.Parse(arg);
         }
         
         protected void ParseDPS(string arg)
@@ -77,7 +77,7 @@ namespace p2_mmorpg.Input
             if (!ValidInput.CheckIfValid(name, arg))
                 return;
 
-            Dps = uint.Parse(arg);
+            Dps = ushort.Parse(arg);
         }
 
         protected void ParseMinTime(string arg)
@@ -87,7 +87,7 @@ namespace p2_mmorpg.Input
             if (!ValidInput.CheckIfValid(name, arg))
                 return;
 
-            uint result = uint.Parse(arg);
+            ushort result = ushort.Parse(arg);
             if (!ValidInput.CheckIfNotZero(name, result))
                 return;
 
@@ -101,7 +101,7 @@ namespace p2_mmorpg.Input
             if (!ValidInput.CheckIfValid(name, arg))
                 return;
 
-            uint result = uint.Parse(arg);
+            ushort result = ushort.Parse(arg);
             if (!ValidInput.CheckIfNotZero(name, result))
                 return;
 

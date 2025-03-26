@@ -1,9 +1,9 @@
 public class DefaultConfig
 {
-    public const uint MaxInstances = 1;
-    public const uint Tanks = 1;
-    public const uint Healer = 1;
-    public const uint Dps = 3;
-    public const uint MinTime = 1;
-    public const uint MaxTime = 15;
+    public const ushort MaxInstances = 1;
+    public const ushort Tanks = 1;
+    public const ushort Healer = 1;
+    public const ushort Dps = 3;
+    public const ushort MinTime = 1;
+    public const ushort MaxTime = 15;
 }

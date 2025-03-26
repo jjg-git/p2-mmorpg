@@ -39,19 +39,19 @@ else
 
 ConfigInfo(config);
 
-uint maxInstances = config.MaxInstances; // the "n" instances
-uint tanks = config.Tanks;
-uint healer = config.Healer;
-uint dps = config.Dps;
-uint minTime = config.MinTime;
-uint maxTime = config.MaxTime;
+ushort maxInstances = config.MaxInstances; // the "n" instances
+ushort tanks = config.Tanks;
+ushort healer = config.Healer;
+ushort dps = config.Dps;
+ushort minTime = config.MinTime;
+ushort maxTime = config.MaxTime;
 
 Queue<Party> partyQueue = new(); // because my LSP
                                  // complained, so i
                                  // casted it from uint
                                  // to int
-List<Thread> threadlist = new((int)maxInstances);
-instanceLogs = CreateListOfEmptyStrs((int)maxInstances);
+List<Thread> threadlist = new(Convert.ToInt32(maxInstances));
+instanceLogs = CreateListOfEmptyStrs(Convert.ToInt32(maxInstances));
 
 Console.WriteLine("Program starts!");
 
@@ -61,9 +61,9 @@ object stats_lock = new();
 
 QueueParty();
 
-for (int i = 0; i < maxInstances; i++)
+for (ushort i = 0; i < maxInstances; i++)
 {
-    uint id = Convert.ToUInt32(i);
+    ushort id = i;
     threadlist.Add(new(() => { InstanceFunction(id); }));
     threadlist.Last().Start();
 
@@ -140,7 +140,7 @@ void QueueParty()
     }
 }
 
-void InstanceFunction(uint id)
+void InstanceFunction(ushort id)
 {
     // Console.WriteLine(
     //     $"Instance {id} ({Thread.CurrentThread.GetHashCode()}) starts!"
@@ -148,8 +148,8 @@ void InstanceFunction(uint id)
 
     // int threadHashCode = Thread.CurrentThread.GetHashCode();
     // string nameInstance = "newInstance";
-    uint sleepTime = GetRandomTime();
-    uint partyCreated = 0;
+    ushort sleepTime = GetRandomTime();
+    ushort partyCreated = 0;
 
     // For timelapse
     string timeLog = string.Empty;
@@ -249,11 +249,11 @@ void InstanceFunction(uint id)
     // Console.WriteLine($"Instance {id} unlocks stats_lock!");
 }
 
-uint GetRandomTime()
+ushort GetRandomTime()
 {
-    uint time = 0;
+    ushort time = 0;
     Random random = Random.Shared;
-    time = (uint)random.Next() % (maxTime - minTime) + minTime;
+    time = (ushort)(random.Next() % (maxTime - minTime) + minTime);
 
     return time;
 }

@@ -1,9 +1,9 @@
 public record Config(
-    uint MaxInstances = DefaultConfig.MaxInstances,
-    uint Tanks = DefaultConfig.Tanks,
-    uint Healer = DefaultConfig.Healer,
-    uint Dps = DefaultConfig.Dps,
-    uint MinTime = DefaultConfig.MinTime,
-    uint MaxTime = DefaultConfig.MaxTime
+    ushort MaxInstances = DefaultConfig.MaxInstances,
+    ushort Tanks = DefaultConfig.Tanks,
+    ushort Healer = DefaultConfig.Healer,
+    ushort Dps = DefaultConfig.Dps,
+    ushort MinTime = DefaultConfig.MinTime,
+    ushort MaxTime = DefaultConfig.MaxTime
 )
 {}
