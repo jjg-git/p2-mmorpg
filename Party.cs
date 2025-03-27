@@ -1,37 +1,64 @@
 class Party
 {
-
-    public bool AddTanks()
+    
+    public bool AddTanks(int remaining)
     {
         if (tanks == maxTanks)
             return false;
+
+        if (remaining == 0)
+        {
+            CanGet = false;
+            Console.WriteLine($"from AddTanks: CanGet = {CanGet}");
+            return false;
+        }
 
         tanks += 1;
         return true;
     }
 
-    public bool AddHealer()
+    public bool AddHealer(int remaining)
     {
         if (healer == maxHealer)
             return false;
+
+        if (remaining == 0)
+        {
+            CanGet = false;
+            Console.WriteLine($"from AddHealer: CanGet = {CanGet}");
+            return false;
+        }
 
         healer += 1;
         return true;
     }
 
-    public bool AddDPS()
+    public bool AddDPS(int remaining)
     {
         if (dps == maxDPS)
             return false;
+
+        if (remaining == 0)
+        {
+            CanGet = false;
+            Console.WriteLine($"from AddDPS: CanGet = {CanGet}");
+            return false;
+        }
+
         dps += 1;
         return true;
     }
 
     public bool IsFull()
     {
-        return tanks == maxTanks &&
+        if (tanks == maxTanks &&
                healer == maxHealer &&
-               dps == maxDPS;
+               dps == maxDPS)
+        {
+            Console.WriteLine("Is full!");
+            return true;
+        }
+        return false;
     }
 
     public void ShowInfo()
@@ -48,6 +75,8 @@ class Party
 
         count++;
     }
+
+    public bool CanGet { get; set; } = true;
 
     private const int maxTanks = 1;
     private const int maxHealer = 1;

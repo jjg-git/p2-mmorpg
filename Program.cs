@@ -129,8 +129,10 @@ void QueueParty()
 {
     Party? newParty = null;
 
+    bool running = true;
     while (!seeIfAnyZero())
     {
+        Console.WriteLine($"!seeIfAllZero() = {!seeIfAllZero()}");
         // Console.WriteLine(
         //     $"Making a party..."
         // );
@@ -141,45 +143,53 @@ void QueueParty()
         //     $"A party is created."
         // );
 
-        while (!newParty.IsFull() && !seeIfAnyZero())
+        while (!newParty.IsFull() && newParty.CanGet)
         {
+            Console.WriteLine("Inner while loop");
+            Console.WriteLine($"!newParty.IsFull() = {!newParty.IsFull()}");
+            Console.WriteLine($"newParty.CanGet = {newParty.CanGet}");
+            Console.WriteLine($"Both: {!newParty.IsFull() && newParty.CanGet}");
+            Console.WriteLine("");
             // if (tanks != 0)
             // {
-            //     if (newParty.AddTanks())
+            //     if (newParty.AddTanks(tanks))
             //         tanks--;
             // }
             // 
             // if (healer != 0)
             // {
-            //     if (newParty.AddHealer())
+            //     if (newParty.AddHealer(healer))
             //         healer--;
             // }
 
             // if (dps != 0)
             // {
-            //     if (newParty.AddDPS())
+            //     if (newParty.AddDPS(dps))
             //         dps--;
             // }
 
-            if (newParty.AddTanks())
+            if (newParty.AddTanks(tanks))
                 tanks--;
         
-            if (newParty.AddHealer())
+            if (newParty.AddHealer(healer))
                 healer--;
 
-            if (newParty.AddDPS())
+            if (newParty.AddDPS(dps))
                 dps--;
+
         }
+        running = newParty.CanGet;
 
         if (newParty.IsFull())
         {
-            // newParty.ShowInfo();
+            newParty.ShowInfo();
             partyQueue.Enqueue(newParty);
         }
 
         newParty = null;
 
         ShowRemaining();
+        Console.WriteLine("");
     }
 }
 
@@ -383,6 +393,17 @@ void partyCompletesMission(uint id)
     Console.WriteLine($"The party completed instance {id}.");
 }
 
+bool seeIfAllZero()
+{
+    // return ((tanks - 1) == 0) || 
+    //     ((healer - 1) == 0) || 
+    //     ((dps - 1) == 0);
+
+    return (tanks == 0) && 
+           (healer == 0) && 
+           (dps == 0);
+}
+
 bool seeIfAnyZero()
 {
     // return ((tanks - 1) == 0) || 
@@ -390,8 +411,8 @@ bool seeIfAnyZero()
     //     ((dps - 1) == 0);
 
     return (tanks == 0) || 
-        (healer == 0) || 
-        (dps == 0);
+           (healer == 0) || 
+           (dps == 0);
 }
 
 string WriteTimeStamp(long currentTick, long previousTick)
