@@ -3,6 +3,16 @@ using System.Diagnostics;
 using p2_mmorpg.Input;
 
 const uint msPerSec = 1000;
+long programStartTimelapse;
+long programEndTimelapse;
+
+long queuePartyStartTimeLapse;
+long queuePartyEndTimeLapse;
+
+long instanceStartTimeLapse;
+long instanceEndTimeLapse;
+
+programStartTimelapse = Stopwatch.GetTimestamp();
 
 // Statistics
 List<string> instanceLogs;
@@ -46,6 +56,7 @@ ushort dps = config.Dps;
 ushort minTime = config.MinTime;
 ushort maxTime = config.MaxTime;
 
+
 Queue<Party> partyQueue = new(); // because my LSP
                                  // complained, so i
                                  // casted it from uint
@@ -59,7 +70,9 @@ object mutual_lock = new();
 object datetime_lock = new();
 object stats_lock = new();
 
+queuePartyStartTimeLapse = Stopwatch.GetTimestamp();
 QueueParty();
+queuePartyEndTimeLapse = Stopwatch.GetTimestamp();
 
 for (ushort i = 0; i < maxInstances; i++)
 {
@@ -70,17 +83,47 @@ for (ushort i = 0; i < maxInstances; i++)
     // Console.WriteLine($"Instance {i} is created!");
 }
 
+instanceStartTimeLapse = Stopwatch.GetTimestamp();
 foreach (var thread in threadlist)
 {
     thread.Join();
 }
-
+instanceEndTimeLapse = Stopwatch.GetTimestamp();
 
 Console.Write("\n");
 foreach (string? log in instanceLogs)
 {
     Console.WriteLine(log);
 }
+
+programEndTimelapse = Stopwatch.GetTimestamp();
+
+TimeSpan programTimeSpan = Stopwatch.GetElapsedTime(
+                                programStartTimelapse, 
+                                programEndTimelapse
+                           );
+TimeSpan queuePartyTimeSpan = Stopwatch.GetElapsedTime(
+                                queuePartyStartTimeLapse, 
+                                queuePartyEndTimeLapse
+                              );
+TimeSpan instanceTimeSpan = Stopwatch.GetElapsedTime(
+                                instanceStartTimeLapse, 
+                                instanceEndTimeLapse
+                            );
+
+ShowRemaining();
+Console.WriteLine(
+    "The program has been running for " + 
+        $"{programTimeSpan.TotalSeconds:N4} seconds."
+);
+Console.WriteLine(
+    "The party queueing was running for "+
+        $"{queuePartyTimeSpan.TotalSeconds:N4} seconds."
+);
+Console.WriteLine(
+    "The instances had been running for "+
+        $"{instanceTimeSpan.TotalSeconds:N4} seconds."
+);
 
 void QueueParty()
 {
