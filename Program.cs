@@ -225,6 +225,7 @@ void InstanceFunction(ushort id)
         // ShowDiffTimeSpan(previous, current);
         partyCompletesMission(id);
         Debug.WriteInstanceStatus(id, false);
+        sleepTime = GetRandomTime();
     }
 
     current = Stopwatch.GetTimestamp();
@@ -253,7 +254,7 @@ ushort GetRandomTime()
 {
     ushort time = 0;
     Random random = Random.Shared;
-    time = (ushort)(random.Next() % (maxTime - minTime) + minTime);
+    time = (ushort)(random.Next() % (maxTime - minTime + 1) + minTime);
 
     return time;
 }
