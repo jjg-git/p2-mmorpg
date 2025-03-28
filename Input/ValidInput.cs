@@ -18,7 +18,7 @@ namespace p2_mmorpg.Input
 
         public static bool CheckTime(uint minTime, uint maxTime)
         {
-            bool check = maxTime > minTime;
+            bool check = maxTime > minTime && maxTime <= 15;
             if (!check)
             {
                 Error.ShowMessage(
