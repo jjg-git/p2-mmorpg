@@ -132,7 +132,7 @@ void QueueParty()
     bool running = true;
     while (!seeIfAnyZero())
     {
-        Console.WriteLine($"!seeIfAllZero() = {!seeIfAllZero()}");
+        // Console.WriteLine($"!seeIfAllZero() = {!seeIfAllZero()}");
         // Console.WriteLine(
         //     $"Making a party..."
         // );
@@ -188,7 +188,7 @@ void QueueParty()
 
         newParty = null;
 
-        ShowRemaining();
+        // ShowRemaining();
         Console.WriteLine("");
     }
 }
