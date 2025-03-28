@@ -2,12 +2,12 @@ namespace p2_mmorpg.Input
 {
     abstract public class InputMethod ()
     {
-        protected ushort MaxInstances = 1;
-        protected ushort Tanks = 1;
-        protected ushort Healer = 1;
-        protected ushort Dps = 3;
-        protected ushort MinTime = 1;
-        protected ushort MaxTime = 2;
+        protected ushort MaxInstances = DefaultConfig.MaxInstances;
+        protected ushort Tanks = DefaultConfig.Tanks;
+        protected ushort Healer = DefaultConfig.Healer;
+        protected ushort Dps = DefaultConfig.Dps;
+        protected ushort MinTime = DefaultConfig.MaxTime;
+        protected ushort MaxTime = DefaultConfig.MinTime;
 
         public abstract void Invoke();
         public Config Execute()
