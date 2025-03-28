@@ -85,7 +85,10 @@ ThreadPool.GetMaxThreads(out int workerThreads, out int completionPortThreads);
 
 if (maxInstances > workerThreads)
 {
-    Console.WriteLine($"I can only work with {workerThreads} threads...\n\n");
+    Console.WriteLine(
+        "Your instances are too many! " +
+        $"I can only work with a thread pool of {workerThreads} threads...\n\n"
+    );
     Thread.Sleep(3000);
 }
 
