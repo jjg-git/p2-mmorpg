@@ -19,8 +19,40 @@ namespace p2_mmorpg.Input
             AskInput("Number of tanks? ", ParseTank);
             AskInput("Number of healers? ", ParseHealer);
             AskInput("Number of DPS? ", ParseDPS);
-            AskInput("Minimum time in seconds for the instance to run? ", ParseMinTime);
-            AskInput("Maximum time in seconds for the instance to run? ", ParseMaxTime);
+            AskInput(
+                "Minimum time in seconds for the instance to run? ", 
+                ParseMinTime
+            );
+            AskInput(
+                "Maximum time in seconds for the instance to run? ",
+                ParseMaxTime
+            );
+            // if (ValidFlags.CheckFlag(ValidFlags.MaxInstances, validFlags))
+            //     AskInput("Number of instances? ", ParseMaxInstances);
+            // 
+            // if (ValidFlags.CheckFlag(ValidFlags.Tanks, validFlags))
+            //     AskInput("Number of tanks? ", ParseTank);
+
+            // if (ValidFlags.CheckFlag(ValidFlags.Healers, validFlags))
+            //     AskInput("Number of healers? ", ParseHealer);
+
+            // if (ValidFlags.CheckFlag(ValidFlags.DPS, validFlags))
+            //     AskInput("Number of DPS? ", ParseDPS);
+
+            // if (ValidFlags.CheckFlag(ValidFlags.MinTime, validFlags))
+            // {
+            //     AskInput(
+            //         "Minimum time in seconds for the instance to run? ", 
+            //         ParseMinTime
+            //     );
+            // }
+            // if (ValidFlags.CheckFlag(ValidFlags.MaxTime, validFlags))
+            // {
+            //     AskInput(
+            //         "Maximum time in seconds for the instance to run? ",
+            //         ParseMaxTime
+            //     );
+            // }
         }
     }
 }

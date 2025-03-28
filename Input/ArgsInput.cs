@@ -1,12 +1,7 @@
 namespace p2_mmorpg.Input
 {
-    class ArgsInput : InputMethod
+    class ArgsInput(string[] args) : InputMethod
     {
-        public ArgsInput(string[] args)
-        {
-            this.args = args;
-        }
-
         private void ParseArgs(string[] args)
         {
             ParseMaxInstances(args[0]);
@@ -25,9 +20,21 @@ namespace p2_mmorpg.Input
             {
                 MinTime = DefaultConfig.MinTime;
                 MaxTime = DefaultConfig.MaxTime;
+                // validFlags = (ushort)(validFlags & ~ValidFlags.MinTime);
+                // validFlags = (ushort)(validFlags & ~ValidFlags.MaxTime);
             }
+
+            // if (validFlags != ValidFlags.AllValid)
+            // {
+            //     RuntimeInput runtimeInput = new();
+            //     Config correctConfig;
+
+            //     runtimeInput.ChangeValidFlags(validFlags);
+            //     correctConfig = new PrepareConfig().Execute(runtimeInput);
+            //     config = correctConfig;
+            // }
         }
 
-        private string[] args;
+        private string[] args = args;
     }
 }

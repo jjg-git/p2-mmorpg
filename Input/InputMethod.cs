@@ -9,6 +9,8 @@ namespace p2_mmorpg.Input
         protected ushort MinTime = DefaultConfig.MaxTime;
         protected ushort MaxTime = DefaultConfig.MinTime;
 
+        protected ushort validFlags = 0b111111;
+
         public abstract void Invoke();
         public Config Execute()
         {
@@ -41,11 +43,17 @@ namespace p2_mmorpg.Input
             string name = "number of instances";
 
             if (!ValidInput.CheckIfValid(name, arg))
+            {
+                validFlags = (ushort)(validFlags & ~ValidFlags.MaxInstances);
                 return false;
+            }
 
             ushort result = ushort.Parse(arg);
             if (!ValidInput.CheckIfNotZero(name, result))
+            {
+                validFlags = (ushort)(validFlags & ~ValidFlags.MaxInstances);
                 return false;
+            }
 
             MaxInstances = result;
             return true;
@@ -56,7 +64,10 @@ namespace p2_mmorpg.Input
             string name = "number of Tanks";
 
             if (!ValidInput.CheckIfValid(name, arg))
+            {
+                validFlags = (ushort)(validFlags & ~ValidFlags.Tanks);
                 return false;
+            }
 
             Tanks = ushort.Parse(arg);
             return true;
@@ -67,7 +78,10 @@ namespace p2_mmorpg.Input
             string name = "number of Healers";
 
             if (!ValidInput.CheckIfValid(name, arg))
+            {
+                validFlags = (ushort)(validFlags & ~ValidFlags.Healers);
                 return false;
+            }
 
             Healer = ushort.Parse(arg);
             return true;
@@ -78,7 +92,10 @@ namespace p2_mmorpg.Input
             string name = "number of DPS's";
 
             if (!ValidInput.CheckIfValid(name, arg))
+            {
+                validFlags = (ushort)(validFlags & ~ValidFlags.DPS);
                 return false;
+            }
 
             Dps = ushort.Parse(arg);
             return true;
@@ -89,11 +106,17 @@ namespace p2_mmorpg.Input
             string name = "minimum time";
 
             if (!ValidInput.CheckIfValid(name, arg))
+            {
+                validFlags = (ushort)(validFlags & ~ValidFlags.MinTime);
                 return false;
+            }
 
             ushort result = ushort.Parse(arg);
             if (!ValidInput.CheckIfNotZero(name, result))
+            {
+                validFlags = (ushort)(validFlags & ~ValidFlags.MinTime);
                 return false;
+            }
 
             MinTime = result;
             return true;
@@ -104,14 +127,25 @@ namespace p2_mmorpg.Input
             string name = "maximum time";
 
             if (!ValidInput.CheckIfValid(name, arg))
+            {
+                validFlags = (ushort)(validFlags & ~ValidFlags.MaxTime);
                 return false;
+            }
 
             ushort result = ushort.Parse(arg);
             if (!ValidInput.CheckIfNotZero(name, result))
+            {
+                validFlags = (ushort)(validFlags & ~ValidFlags.MaxTime);
                 return false;
+            }
 
             MaxTime = result;
             return true;
+        }
+
+        public void ChangeValidFlags(ushort flags)
+        {
+            validFlags = flags;
         }
     }
 }
