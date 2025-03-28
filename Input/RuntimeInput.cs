@@ -7,9 +7,8 @@ namespace p2_mmorpg.Input
 
         private void AskInput(string caption, ParseFunc parseFunc)
         {
-            string input = String.Empty;
             Console.Write(caption);
-            input = Util.ReadLine();
+            string input = Util.ReadLine();
             parseFunc(input);
         }
         
