@@ -93,7 +93,7 @@ instanceEndTimeLapse = Stopwatch.GetTimestamp();
 Console.Write("\n");
 foreach (string? log in instanceLogs)
 {
-    Console.WriteLine(log);
+    Console.WriteLine(log + "\n");
 }
 
 programEndTimelapse = Stopwatch.GetTimestamp();
@@ -145,11 +145,11 @@ void QueueParty()
 
         while (!newParty.IsFull() && newParty.CanGet)
         {
-            Console.WriteLine("Inner while loop");
-            Console.WriteLine($"!newParty.IsFull() = {!newParty.IsFull()}");
-            Console.WriteLine($"newParty.CanGet = {newParty.CanGet}");
-            Console.WriteLine($"Both: {!newParty.IsFull() && newParty.CanGet}");
-            Console.WriteLine("");
+            // Console.WriteLine("Inner while loop");
+            // Console.WriteLine($"!newParty.IsFull() = {!newParty.IsFull()}");
+            // Console.WriteLine($"newParty.CanGet = {newParty.CanGet}");
+            // Console.WriteLine($"Both: {!newParty.IsFull() && newParty.CanGet}");
+            // Console.WriteLine("");
             // if (tanks != 0)
             // {
             //     if (newParty.AddTanks(tanks))
@@ -379,6 +379,7 @@ void ShowRemaining()
     Console.WriteLine($"tank: {tanks}");
     Console.WriteLine($"healer: {healer}");
     Console.WriteLine($"dps: {dps}");
+    Console.WriteLine("");
 }
 
 void assignPartyToInstance(uint id)
