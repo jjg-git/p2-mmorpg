@@ -48,6 +48,7 @@ else
 }
 
 ConfigInfo(config);
+Thread.Sleep(2000);
 
 ushort maxInstances = config.MaxInstances; // the "n" instances
 ushort tanks = config.Tanks;
