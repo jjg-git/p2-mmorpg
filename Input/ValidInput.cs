@@ -18,16 +18,17 @@ namespace p2_mmorpg.Input
 
         public static bool CheckTime(uint minTime, uint maxTime)
         {
-            bool check = maxTime > minTime && maxTime <= 15;
+            bool check = maxTime > minTime;
             if (!check)
             {
                 Error.ShowMessage(
-                    "Max time and minimum time must not be the same!" +
+                    "Max time and minimum time must not be the same! " +
                     "Setting both to default value " +
-                    "(1 for minimum time, 15 for maximum time."
+                    $"({DefaultConfig.MinTime} for minimum time, " + 
+                    $"{DefaultConfig.MaxTime} for maximum time.)"
                 );
             }
-            return maxTime > minTime;
+            return check;
         }
 
         public static bool CheckIfValid(string name, string arg)
