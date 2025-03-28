@@ -25,7 +25,7 @@ echo ""
 echo "[$testcase]: Negative 1s"
 sleep 1s
 echo "dotnet run -1 -1 -1 -1 -1 -1"
-dotnet run 0 0 0 0 0 0
+dotnet run -1 -1 -1 -1 -1 -1
 ((testcase+=1))
 echo ""
 
