@@ -3,13 +3,14 @@ namespace p2_mmorpg.Input
 {
     class RuntimeInput : InputMethod
     {
-        private delegate void ParseFunc(string input);
+        private delegate bool ParseFunc(string input);
 
         private void AskInput(string caption, ParseFunc parseFunc)
         {
             Console.Write(caption);
             string input = Util.ReadLine();
-            parseFunc(input);
+            if (!parseFunc(input))
+                AskInput(caption, parseFunc);
         }
         
         public override void Invoke()

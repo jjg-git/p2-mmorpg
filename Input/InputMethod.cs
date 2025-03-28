@@ -36,76 +36,82 @@ namespace p2_mmorpg.Input
             }
         }
 
-        protected void ParseMaxInstances(string arg)
+        protected bool ParseMaxInstances(string arg)
         {
             string name = "number of instances";
 
             if (!ValidInput.CheckIfValid(name, arg))
-                return;
+                return false;
 
             ushort result = ushort.Parse(arg);
             if (!ValidInput.CheckIfNotZero(name, result))
-                return;
+                return false;
 
             MaxInstances = result;
+            return true;
         }
 
-        protected void ParseTank(string arg)
+        protected bool ParseTank(string arg)
         {
             string name = "number of Tanks";
 
             if (!ValidInput.CheckIfValid(name, arg))
-                return;
+                return false;
 
             Tanks = ushort.Parse(arg);
+            return true;
         }
 
-        protected void ParseHealer(string arg)
+        protected bool ParseHealer(string arg)
         {
             string name = "number of Healers";
 
             if (!ValidInput.CheckIfValid(name, arg))
-                return;
+                return false;
 
             Healer = ushort.Parse(arg);
+            return true;
         }
         
-        protected void ParseDPS(string arg)
+        protected bool ParseDPS(string arg)
         {
             string name = "number of DPS's";
 
             if (!ValidInput.CheckIfValid(name, arg))
-                return;
+                return false;
 
             Dps = ushort.Parse(arg);
+            return true;
         }
 
-        protected void ParseMinTime(string arg)
+        protected bool ParseMinTime(string arg)
         {
             string name = "minimum time";
 
             if (!ValidInput.CheckIfValid(name, arg))
-                return;
+                return false;
 
             ushort result = ushort.Parse(arg);
             if (!ValidInput.CheckIfNotZero(name, result))
-                return;
+                return false;
 
             MinTime = result;
+            return true;
         }
 
-        protected void ParseMaxTime(string arg)
+        protected bool ParseMaxTime(string arg)
         {
             string name = "maximum time";
 
             if (!ValidInput.CheckIfValid(name, arg))
-                return;
+                return false;
 
             ushort result = ushort.Parse(arg);
             if (!ValidInput.CheckIfNotZero(name, result))
-                return;
+                return false;
 
             MaxTime = result;
+            return true;
         }
     }
 }
