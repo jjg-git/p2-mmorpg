@@ -78,9 +78,11 @@ QueueParty();
 queuePartyEndTimeLapse = Stopwatch.GetTimestamp();
 
 // We countdownin'
-CountdownEvent countdownEvent = new(maxInstances);
 
 instanceStartTimeLapse = Stopwatch.GetTimestamp();
+
+CountdownEvent countdownEvent = new(maxInstances);
+
 ThreadPool.GetMaxThreads(out int workerThreads, out int completionPortThreads);
 
 if (maxInstances > workerThreads)
@@ -99,8 +101,8 @@ for (ushort i = 0; i < maxInstances; i++)
     ThreadPool.QueueUserWorkItem(new WaitCallback(
         state => {
             InstanceFunction(id);
-            CountdownEvent count = (CountdownEvent)state;
-            count.Signal();
+            CountdownEvent? count = state as CountdownEvent;
+            count?.Signal();
         }
     ), countdownEvent);
     // threadlist.Add(new(() => { InstanceFunction(id); }));
@@ -213,7 +215,7 @@ void QueueParty()
 
         if (newParty.IsFull())
         {
-            newParty.ShowInfo();
+            // newParty.ShowInfo();
             partyQueue.Enqueue(newParty);
         }
 
