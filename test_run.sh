@@ -38,8 +38,8 @@ echo ""
 
 echo "$testcase: Positive Max value"
 sleep 1s
-echo "dotnet run 65535 65535 65535 65535 0 0"
-dotnet run 65535 65535 65535 65535 0 0
+echo "dotnet run 65535 65535 65535 65535 0 15"
+dotnet run 65535 65535 65535 65535 0 15
 ((testcase+=1))
 echo ""
 
