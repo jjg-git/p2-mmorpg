@@ -9,7 +9,7 @@ class Party
         if (remaining == 0)
         {
             CanGet = false;
-            Console.WriteLine($"from AddTanks: CanGet = {CanGet}");
+            // Console.WriteLine($"from AddTanks: CanGet = {CanGet}");
             return false;
         }
 
@@ -25,7 +25,7 @@ class Party
         if (remaining == 0)
         {
             CanGet = false;
-            Console.WriteLine($"from AddHealer: CanGet = {CanGet}");
+            // Console.WriteLine($"from AddHealer: CanGet = {CanGet}");
             return false;
         }
 
@@ -41,7 +41,7 @@ class Party
         if (remaining == 0)
         {
             CanGet = false;
-            Console.WriteLine($"from AddDPS: CanGet = {CanGet}");
+            // Console.WriteLine($"from AddDPS: CanGet = {CanGet}");
             return false;
         }
 
@@ -55,7 +55,7 @@ class Party
                healer == maxHealer &&
                dps == maxDPS)
         {
-            Console.WriteLine("Is full!");
+            // Console.WriteLine("Is full!");
             return true;
         }
         return false;
@@ -77,6 +77,7 @@ class Party
     }
 
     public bool CanGet { get; set; } = true;
+    public int Id { get { return id; } }
 
     private const int maxTanks = 1;
     private const int maxHealer = 1;

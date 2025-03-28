@@ -252,7 +252,7 @@ void InstanceFunction(ushort id)
 
             break;
         }
-        assignPartyToInstance(id);
+        assignPartyToInstance(queuedParty, id);
         partyCreated++;
 
         Debug.WriteInstanceStatus(id, true);
@@ -276,7 +276,7 @@ void InstanceFunction(ushort id)
         // current = TimeSpan.FromTicks(Stopwatch.GetTimestamp());
 
         // ShowDiffTimeSpan(previous, current);
-        partyCompletesMission(id);
+        partyCompletesMission(queuedParty, id);
         Debug.WriteInstanceStatus(id, false);
         sleepTime = GetRandomTime();
     }
@@ -382,16 +382,16 @@ void ShowRemaining()
     Console.WriteLine("");
 }
 
-void assignPartyToInstance(uint id)
+void assignPartyToInstance(Party party, uint id)
 {
-    Console.WriteLine($"The party is assigned to instance {id}!");
+    Console.WriteLine($"The party ({party.Id}) is assigned to instance {id}!");
 
     // Console.WriteLine($"Instances: {instanceRunning}/{maxInstances}");
 }
 
-void partyCompletesMission(uint id)
+void partyCompletesMission(Party party, uint id)
 {
-    Console.WriteLine($"The party completed instance {id}.");
+    Console.WriteLine($"The party ({party.Id}) completed instance {id}.");
 }
 
 bool seeIfAllZero()
