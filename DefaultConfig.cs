@@ -5,5 +5,5 @@ public class DefaultConfig
     public const ushort Healer = 1;
     public const ushort Dps = 3;
     public const ushort MinTime = 1;
-    public const ushort MaxTime = 15;
+    public const ushort MaxTime = 2;
 }
