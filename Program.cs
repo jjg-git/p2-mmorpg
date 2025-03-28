@@ -39,6 +39,7 @@ if (args.Length != 6)
                     max - maximum time for the instance to wait
                 """
         ); 
+        Environment.Exit(1);
     }
     config = prepareConfig.Execute(new RuntimeInput());
 }
@@ -395,16 +396,16 @@ void partyCompletesMission(Party party, uint id)
     Console.WriteLine($"The party ({party.Id}) completed instance {id}.");
 }
 
-bool seeIfAllZero()
-{
-    // return ((tanks - 1) == 0) || 
-    //     ((healer - 1) == 0) || 
-    //     ((dps - 1) == 0);
-
-    return (tanks == 0) && 
-           (healer == 0) && 
-           (dps == 0);
-}
+// bool seeIfAllZero()
+// {
+//     // return ((tanks - 1) == 0) || 
+//     //     ((healer - 1) == 0) || 
+//     //     ((dps - 1) == 0);
+// 
+//     return (tanks == 0) && 
+//            (healer == 0) && 
+//            (dps == 0);
+// }
 
 bool seeIfAnyZero()
 {
