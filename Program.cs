@@ -77,21 +77,40 @@ queuePartyStartTimeLapse = Stopwatch.GetTimestamp();
 QueueParty();
 queuePartyEndTimeLapse = Stopwatch.GetTimestamp();
 
+// We countdownin'
+CountdownEvent countdownEvent = new(maxInstances);
+
+instanceStartTimeLapse = Stopwatch.GetTimestamp();
+ThreadPool.GetMaxThreads(out int workerThreads, out int completionPortThreads);
+
+if (maxInstances > workerThreads)
+{
+    Console.WriteLine($"I can only work with {workerThreads} threads...\n\n");
+    Thread.Sleep(3000);
+}
+
 for (ushort i = 0; i < maxInstances; i++)
 {
     ushort id = i;
-    threadlist.Add(new(() => { InstanceFunction(id); }));
-    threadlist.Last().Start();
+    ThreadPool.QueueUserWorkItem(new WaitCallback(
+        state => {
+            InstanceFunction(id);
+            CountdownEvent count = (CountdownEvent)state;
+            count.Signal();
+        }
+    ), countdownEvent);
+    // threadlist.Add(new(() => { InstanceFunction(id); }));
+    // threadlist.Last().Start();
 
     // Console.WriteLine($"Instance {i} is created!");
 }
-
-instanceStartTimeLapse = Stopwatch.GetTimestamp();
-foreach (var thread in threadlist)
-{
-    thread.Join();
-}
+countdownEvent.Wait();
 instanceEndTimeLapse = Stopwatch.GetTimestamp();
+
+// foreach (var thread in threadlist)
+// {
+//     thread.Join();
+// }
 
 Console.Write("\n");
 
