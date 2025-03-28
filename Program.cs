@@ -87,7 +87,8 @@ if (maxInstances > workerThreads)
 {
     Console.WriteLine(
         "Your instances are too many! " +
-        $"I can only work with a thread pool of {workerThreads} threads...\n\n"
+        $"I can only work with a thread pool of " +
+        $"{workerThreads} threads...\n\n"
     );
     Thread.Sleep(3000);
 }
