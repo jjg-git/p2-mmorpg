@@ -49,11 +49,11 @@ namespace p2_mmorpg.Input
             }
 
             ushort result = ushort.Parse(arg);
-            if (!ValidInput.CheckIfNotZero(name, result))
-            {
-                validFlags = (ushort)(validFlags & ~ValidFlags.MaxInstances);
-                return false;
-            }
+            // if (!ValidInput.CheckIfNotZero(name, result))
+            // {
+            //     validFlags = (ushort)(validFlags & ~ValidFlags.MaxInstances);
+            //     return false;
+            // }
 
             MaxInstances = result;
             return true;

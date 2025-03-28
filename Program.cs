@@ -58,6 +58,7 @@ ushort dps = config.Dps;
 ushort minTime = config.MinTime;
 ushort maxTime = config.MaxTime;
 
+// maxInstances = 0;
 
 Queue<Party> partyQueue = new(); // because my LSP
                                  // complained, so i
@@ -93,6 +94,11 @@ foreach (var thread in threadlist)
 instanceEndTimeLapse = Stopwatch.GetTimestamp();
 
 Console.Write("\n");
+
+if (maxInstances == 0)
+{
+    Console.WriteLine("No instance available.\n");
+}
 foreach (string? log in instanceLogs)
 {
     Console.WriteLine(log + "\n");
