@@ -43,6 +43,20 @@ dotnet run 65535 65535 65535 65535 0 0
 ((testcase+=1))
 echo ""
 
+echo "[$testcase]: Non-equal time values"
+sleep 1s
+echo "dotnet run 0 0 0 0 1 2"
+dotnet run 0 0 0 0 1 2
+((testcase+=1))
+echo ""
+
+echo "[$testcase]: Equal time values"
+sleep 1s
+echo "dotnet run 0 0 0 0 2 2"
+dotnet run 0 0 0 0 2 2
+((testcase+=1))
+echo ""
+
 
 echo "--Program specifics--"
 sleep 1s
